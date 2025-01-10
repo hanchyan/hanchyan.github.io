@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Filter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .entry {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Filter Entries by Date</h1>
+    
+    <label for="year">Year:</label>
+    <select id="year">
+        <option value="">Select Year</option>
+    </select>
+
+    <label for="month">Month:</label>
+    <select id="month">
+        <option value="">Select Month</option>
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+
+    <label for="date">Date:</label>
+    <select id="date">
+        <option value="">Select Date</option>
+        <!-- Sample Date Options -->
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+        <option value="31">31</option>
+    </select>
+
+    <button onclick="filterEntries()">Filter</button>
+
+    <h2>Entries:</h2>
+    <div id="entries">
+        <!-- Sample Entries -->
+        <div class="entry" data-date="2024-09-25">Entry 1 - 2024-09-25</div>
+        <div class="entry" data-date="2024-09-26">Entry 2 - 2024-09-26</div>
+        <div class="entry" data-date="2023-08-30">Entry 3 - 2023-08-30</div>
+        <div class="entry" data-date="2024-10-01">Entry 4 - 2024-10-01</div>
+    </div>
+
+    <script>
+        // Populate the year dropdown with the last 10 years
+        const yearSelect = document.getElementById('year');
+        const currentYear = new Date().getFullYear();
+        for (let i = 0; i <= 10; i++) {
+            const yearOption = document.createElement('option');
+            yearOption.value = currentYear - i;
+            yearOption.textContent = currentYear - i;
+            yearSelect.appendChild(yearOption);
+        }
+
+        function filterEntries() {
+            const year = yearSelect.value;
+            const month = document.getElementById('month').value;
+            const date = document.getElementById('date').value;
+            const entries = document.querySelectorAll('.entry');
+
+            entries.forEach(entry => {
+                const entryDate = new Date(entry.getAttribute('data-date'));
+                const entryYear = entryDate.getFullYear();
+                const entryMonth = entryDate.getMonth() + 1; // Months are 0-indexed
+                const entryDateNum = entryDate.getDate();
+
+                // Check if entry matches the filters
+                if (
+                    (year && entryYear != year) ||
+                    (month && entryMonth != month) ||
+                    (date && entryDateNum != date)
+                ) {
+                    entry.style.display = 'none'; // Hide entry
+                } else {
+                    entry.style.display = 'block'; // Show entry
+                }
+            });
+        }
+    </script>
+
+</body>
+</html>

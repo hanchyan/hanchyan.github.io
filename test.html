@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Trading Journal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .journal-entry {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .journal-entry h2 {
+            margin-top: 0;
+        }
+        .image-wrapper {
+            margin-bottom: 10px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 4px solid red; /* Bright red border */
+        }
+        .caption {
+            font-size: 1.5em;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+<div id="journal-entries">
+    <!-- Entries will be dynamically generated here -->
+</div>
+
+<script>
+    const entries = [
+        {
+            date: "2024-09-20",
+            stock: "1655",
+            action: "Buy",
+            reason: "ccc",
+            imageURL1: "1.png",
+            caption1: "Above is the closing price of the S&P in the US. I recorded this price in the wee small hours of the morning in Japan and figured 'why not buy the S&P ETF I have here in Japan at yesterdays Japan market closing price. Theoretically, it should track the 1.6% gain in the actual index and I can make the spread.' So I put in a buy order before the market opened a few yen above yesterdays Japanese market close.",
+            imageURL5: "5.png",
+            caption5: "See the picture above. My trade didnt work. Order didnt go through. You can see from the pic it went up really fast. So my order was not ahead enough in line... or a few yen above the prior close wasn't enough... or something I don't understand about off market hours got in the way... BETTER LUCK NEXT TIME!",
+            imageURL6: "",
+            caption6: ""
+        },
+        {
+            date: "2024-09-29",
+            stock: "1472",
+            action: "Buy",
+            // reason: "Strong earnings report",
+            imageURL1: "6.png",
+            caption1: "Friday 20240927's close in Japan was positive.",
+            imageURL2: "7.png",
+            caption2: "And around 3:30, after market close, the winner of the Japanese election for PM was announced. In post market trading (or whatever its called, not sure), the market tanked like 4%.",
+            imageURL3: "8.png",
+            caption3: "Above are some details of 1472, a double inverse of the TOPIX 400 at Fridays Japanese close, 30 minutes before the election.Similar to the trade in the entry above, I thought I would put in an order before the market opened for yesterdays price. As the Japanese market was tanking around 4% in after hours trading, on the open, this inverse should go up roughly 8%.",
+            imageURL4: "9.png",
+            caption4: "But having learned my lesson from the trade above, not having my order go through, i decided to test the system a little at some different price levels. Luckily, this issue has a minimum order of 1 and the price is about ¥250 (the price of a small cola in the US) so I placed several orders at different prices.",
+            imageURL5: "10.png",
+            caption5: "The market opened a few minutes after I dropped the kid off. I downloaded the SBI app to check my trades on the go. Parked the bike at a conbini, got a drink and sat down to check the phone. You can see some of the orders went through. Looks like here setting a larger buy order at the 270 price could have been good. This is a little over 6% of the previous days close.",
+            imageURL6: "11.png",
+            caption6: "Here is a quick look at the situation while I was at the combini.",
+            imageURL7: "13.png",
+            caption7: "Here is some post mortem info about the buy. This purchase history became available to me online quite a bit after the transaction. Yesterday afternoon looking at my transaction history, it still wasnt available from this screen. So you can see here the order executed at 9:13am.",
+            imageURL8: "",
+            caption8: "",
+            imageURL9: "",
+            caption9: "",
+        },
+        {
+            date: "2024-09-29",
+            stock: "AAPL",
+            action: "Buy",
+            reason: "Strong earnings report",
+            imageURL1: "8.png",
+            caption1: "Above are some details of 1472, a double inverse of the TOPIX 400 at Fridays Japanese close, 30 minutes before the election.Similar to the trade in the entry above, I thought I would put in an order before the market opened for yesterdays price. As the Japanese market was tanking around 4% in after hours trading, on the open, this inverse should go up roughly 8%.",
+            imageURL2: "9.png",
+            caption2: "",
+            imageURL3: "",
+            caption3: "",
+            imageURL4: "",
+            caption4: "",
+            imageURL5: "",
+            caption5: "",
+            imageURL6: "",
+            caption6: ""
+        },
+        {
+            date: "2024-09-29",
+            stock: "AAPL",
+            action: "Buy",
+            reason: "Strong earnings report",
+            imageURL1: "",
+            caption1: "Apple Stock Rising",
+            imageURL2: "",
+            caption2: "",
+            imageURL3: "",
+            caption3: "",
+            imageURL4: "",
+            caption4: "",
+            imageURL5: "",
+            caption5: "",
+            imageURL6: "",
+            caption6: ""
+        },
+        
+
+    
+    ];
+
+    function createEntryHTML(entry) {
+        let html = `
+        <div class="journal-entry">
+            <h2>${entry.date} - ${entry.stock} (${entry.action})</h2>
+            <p>Reason: ${entry.reason}</p>`;
+
+        for (let i = 1; i <= 10; i++) {
+            if (entry[`imageURL${i}`]) {
+                html += `
+                <div class="image-wrapper">
+                    <img src="${entry[`imageURL${i}`]}" alt="Image ${i}">
+                    <p class="caption">${entry[`caption${i}`]}</p>
+                </div>`;
+            }
+        }
+
+        html += `</div>`;
+        return html;
+    }
+
+    const journalContainer = document.getElementById('journal-entries');
+    entries.forEach(entry => {
+        journalContainer.innerHTML += createEntryHTML(entry);
+    });
+</script>
+
+</body>
+</html>
