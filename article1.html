@@ -99,5 +99,76 @@
         <div class="clear"></div>
         <p>For more information on this topic, stay tuned as more updates unfold!</p>
     </div>
+
+    <!-- Add Comment Form -->
+<textarea id="comment-input" placeholder="Write a comment..."></textarea>
+<button id="submit-comment-btn">Submit</button>
+<ul id="comments-list"></ul>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCsx-pCJasJN5AWLnr8jII-E46kwpoN3zY",
+            authDomain: "githubcomments-ba588.firebaseapp.com",
+            databaseURL: "https://githubcomments-ba588-default-rtdb.firebaseio.com",
+            projectId: "githubcomments-ba588",
+            storageBucket: "githubcomments-ba588.firebasestorage.app",
+            messagingSenderId: "144431937310",
+            appId: "1:144431937310:web:be9bc1fa58427e289c7b0f",
+            measurementId: "G-KR78DWW31J"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Function to submit a comment
+        function submitComment() {
+            const commentInput = document.getElementById('comment-input');
+            const commentText = commentInput.value.trim();
+
+            // Validate input
+            if (commentText === "") {
+                alert("Please enter a comment.");
+                return;
+            }
+
+            // Save the comment to Firebase
+            const commentsRef = ref(db, 'comments');
+            push(commentsRef, { text: commentText, timestamp: Date.now() });
+
+            // Clear the input field
+            commentInput.value = '';
+        }
+
+        // Display comments from Firebase
+        function displayComments() {
+            const commentsList = document.getElementById('comments-list');
+            const commentsRef = ref(db, 'comments');
+
+            // Listen for new comments added to Firebase
+            onChildAdded(commentsRef, (snapshot) => {
+                const comment = snapshot.val();
+
+                // Create a new list item for the comment
+                const li = document.createElement('li');
+                li.innerText = comment.text;
+
+                // Append the comment to the list
+                commentsList.appendChild(li);
+            });
+        }
+
+        // Add event listener to the submit button
+        document.getElementById('submit-comment-btn').addEventListener('click', submitComment);
+
+        // Call displayComments on page load
+        displayComments();
+    </script>
+
 </body>
 </html>
